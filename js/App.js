@@ -10,6 +10,9 @@ var app = (function() {
         todos: null,
         init: function() {
             this.content = $("#content");
+            this.todos = new api.collections.ToDos();
+            ViewsFactory.menu();
+            return this;
         },
         changeContent: function(el) {
             this.content.empty().append(el);
@@ -30,7 +33,9 @@ var app = (function() {
         return this.menuView;
       }
     };
-    var Router = Backbone.Router.extend({});
+    var Router = Backbone.Router.extend({
+      
+    });
     api.router = new Router();
 
     return api;

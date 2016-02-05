@@ -1,4 +1,9 @@
 app.views.menu = Backbone.View.extend({
-  initialize : function(){}.
-  render : function(){}
+  template : _template($('#tpl-menu').html()),
+  initialize : function(){
+    this.render();
+  },
+  render : function(){
+    this.$el.html(this.template({}));
+  }
 });
