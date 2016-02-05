@@ -22,6 +22,10 @@ app.views.list = Backbone.View.extend({
         });
       }
     });
+    html += '</ul>';
+    this.$el.html(html);
+    this.delegateEvents();
+    return this;
   },
   priorityUp : function(e) {},
   priorityDown : function() {},
