@@ -23,6 +23,8 @@ var app = (function() {
             return this;
         }
     };
+
+
     var ViewsFactory = {
       menu : function(){
         if(!this.menuView){
@@ -31,24 +33,38 @@ var app = (function() {
           });
         }
         return this.menuView;
+      },
+      list : function() {
+        if(!this.listView) {
+          this.listView = new api.views.list({
+            model : api.todos
+          });
+        }
+        return this.listView;
       }
     };
+
+
     var Router = Backbone.Router.extend({
       routes : {
         'archive' : 'archive',
         'new' : 'newToDo',
         'edit/:index' : 'editToDo',
         'delete/:index' : 'deleteToDo',
-        "" : 'list'
+        '' : 'list'
       },
-      list : function(archive) {},
+      list : function(archive) {
+        var view = ViewsFactory.list();
+        api
+        .title(archive ? 'Archive:' : 'Your ToDos')
+        .changeContent(view.$el);
+        view.setMode(archive ? 'archive' : null).render();
+      },
       archive : function() {},
       newToDo : function() {},
       editToDo : function() {},
       deleteToDo : function() {},
     });
     api.router = new Router();
-
     return api;
-
 })();
