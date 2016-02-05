@@ -20,7 +20,16 @@ var app = (function() {
             return this;
         }
     };
-    var ViewsFactory = {};
+    var ViewsFactory = {
+      menu : function(){
+        if(!this.menuView){
+          this.menuView = new api.views.menu({
+            el : $('#menu');
+          });
+        }
+        return this.menuView;
+      }
+    };
     var Router = Backbone.Router.extend({});
     api.router = new Router();
 
