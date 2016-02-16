@@ -15,7 +15,7 @@ app.collections.ToDos = Backbone.Collection.extend({
   },
   down : function(index){
     if(index < this.models.length-1) {
-      var tmp = this,models[index+1];
+      var tmp = this.models[index+1];
       this.models[index+1] = this.models[index];
       this.models[index] = tmp;
       this.trigger('change');

@@ -1,6 +1,11 @@
 app.views.list = Backbone.View.extend({
   mode : null,
-  events : {},
+  events : {
+    'click a[data-up]': 'priorityUp',
+    'click a[data-down]': 'priorityDown',
+    'click a[data-archive]': 'archive',
+    'click input[data-status]': 'changeStatus'
+  },
   initialize : function(){
     var handler = _bind(this.render, this);
     this.model.bind('change', handler);
@@ -27,10 +32,22 @@ app.views.list = Backbone.View.extend({
     this.delegateEvents();
     return this;
   },
-  priorityUp : function(e) {},
-  priorityDown : function() {},
-  archive : function(e) {},
-  changeStatus : function(e) {},
+  priorityUp : function(e) {
+    var index = parseInt(e.target.parentNode.parentNode.getAttribute("data-index"));
+    this.model.up(index);
+  },
+  priorityDown : function() {
+    var index = parseInt(e.target.parentNode.parentNode.getAttribute("data-index"));
+    this.model.down(index);
+  },
+  archive : function(e) {
+    var index = parseInt(e.target.parentNode.parentNode.getAttribute("data-index"));
+    this.model.archive(this.mode !== "archive", index);
+  },
+  changeStatus : function(e) {
+    var index = parseInt(e.target.parentNode.parentNode.getAttribute("data-index"));
+    this.model.changeStatus(e.target.checked, index); 
+  },
   setMode : function(mode){
     this.mode = mode;
     return this;
